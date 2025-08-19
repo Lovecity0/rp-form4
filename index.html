@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فرم درخواست بلک لیست - دادگستری شهر عشق</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazirmatn@latest/font-face.css">
+  <style>
+    body {
+      font-family: Vazirmatn, Tahoma, sans-serif;
+      background: linear-gradient(135deg, #1e1e2f 0%, #121218 100%);
+      color: #f5f5f5;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .container { max-width: 700px; margin: auto; }
+    .form-box {
+      background: rgba(30,30,30,0.85);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .header { text-align: center; margin-bottom: 2rem; }
+    .logo { font-size: 2rem; }
+    h1 { color: #ff4757; margin: 0.5rem 0; }
+    label { display: block; margin: 0.5rem 0; color: #ff4757; font-weight: bold; }
+    input, select, textarea {
+      width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #444;
+      background: rgba(20,20,20,0.7); color: #fff; margin-bottom: 1rem;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    button {
+      margin-top: 1rem; width: 100%; padding: 1rem;
+      border: none; border-radius: 8px;
+      background: linear-gradient(135deg, #ff4757, #ff3838);
+      color: #fff; font-size: 1.1rem; font-weight: bold; cursor: pointer;
+    }
+    button:hover { opacity: 0.9; }
+    button:disabled {
+      background: #666;
+      cursor: not-allowed;
+    }
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      background: rgba(20,20,20,0.7);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+    }
+    .checkbox-item input {
+      width: auto;
+      margin: 0 5px 0 0;
+    }
+    .required::after {
+      content: " *";
+      color: #ff4757;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-box">
+      <div class="header">
+        <div class="logo">🚫</div>
+        <h1>فرم درخواست بلک لیست - دادگستری شهر عشق</h1>
+      </div>
+      <form id="blacklistForm">
+        <label for="applicantName" class="required">🔸 نام درخواست دهنده:</label>
+        <input id="applicantName" name="applicantName" type="text" required>
+
+        <label for="applicantRole" class="required">🔹 شغل درخواست دهنده:</label>
+        <select id="applicantRole" name="applicantRole" required>
+          <option value="">انتخاب کنید...</option>
+          <option>دادگستری</option>
+          <option>وزارت اطلاعات</option>
+          <option>ارتش</option>
+          <option>سپاه</option>
+          <option>نیرو انتظامی</option>
+          <option>راهنمایی رانندگی</option>
+          <option>مرزبانی</option>
+          <option>نوپو</option>
+		  <option>بیمارستان</option>
+        </select>
+
+        <label for="targetName" class="required">🔸 نام فرد مورد نظر برای بلک لیست:</label>
+        <input id="targetName" name="targetName" type="text" required>
+
+        <label for="targetRole">🔹 شغل فرد مورد نظر:</label>
+        <input id="targetRole" name="targetRole" type="text">
+
+        <label class="required">🔸 دلایل درخواست بلک لیست:</label>
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="reasons" value="تخلف از قوانین"> تخلف از قوانین
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="reasons" value="عدم فعالیت"> عدم فعالیت
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="reasons" value="تخلف اخلاقی"> تخلف اخلاقی
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="reasons" value="افساد"> افساد
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="reasons" value="کلاهبرداری"> کلاهبرداری
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="reasons" value="سایر"> سایر
+          </label>
+        </div>
+
+        <label for="details" class="required">🔹 توضیحات کامل (شامل تاریخ، ساعت و جزئیات حادثه):</label>
+        <textarea id="details" name="details" required></textarea>
+
+        <label for="evidence">🔸 مدارک و شواهد (لینک تصاویر یا مستندات):</label>
+        <input id="evidence" name="evidence" type="text">
+
+        <label for="witness">🔹 شاهدان (در صورت وجود):</label>
+        <input id="witness" name="witness" type="text">
+
+        <button type="submit" id="submitBtn">🚫 ارسال درخواست بلک لیست</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('blacklistForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const WEBHOOK = "https://discord.com/api/webhooks/1407118458839240857/uNx6el5-skStchbvgUDvrCnBOPB0peCvgSozD898U_AY8Fk9NZZINu1mR4k8jTtw8L-T";
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // غیرفعال کردن دکمه ارسال برای جلوگیری از ارسال چندباره
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'در حال ارسال...';
+
+      // جمع‌آوری دلایل انتخاب شده
+      const selectedReasons = [];
+      document.querySelectorAll('input[name="reasons"]:checked').forEach(checkbox => {
+        selectedReasons.push(checkbox.value);
+      });
+
+      const data = {
+        applicantName: form.applicantName.value,
+        applicantRole: form.applicantRole.value,
+        targetName: form.targetName.value,
+        targetRole: form.targetRole.value,
+        reasons: selectedReasons.join(', '),
+        details: form.details.value,
+        evidence: form.evidence.value,
+        witness: form.witness.value,
+        timestamp: new Date().toLocaleString('fa-IR')
+      };
+
+      const content = `
+**درخواست جدید بلک لیست 🚫**
+
+**درخواست دهنده:** ${data.applicantName}
+**شغل درخواست دهنده:** ${data.applicantRole}
+**فرد مورد نظر:** ${data.targetName}
+**شغل فرد مورد نظر:** ${data.targetRole}
+**دلایل درخواست:** ${data.reasons}
+**توضیحات:** 
+${data.details}
+**مدارک و شواهد:** ${data.evidence || 'ندارد'}
+**شاهدان:** ${data.witness || 'ندارد'}
+**زمان ثبت درخواست:** ${data.timestamp}
+      `;
+
+      try {
+        const response = await fetch(WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content })
+        });
+        
+        if (response.ok) {
+          alert('✅ درخواست بلک لیست با موفقیت ثبت شد');
+          form.reset();
+        } else {
+          throw new Error('خطا در ارسال');
+        }
+      } catch (err) {
+        alert('⚠️ خطا در ارسال، دوباره تلاش کنید.');
+        console.error(err);
+      } finally {
+        // فعال کردن مجدد دکمه ارسال
+        submitBtn.disabled = false;
+        submitBtn.textContent = '🚫 ارسال درخواست بلک لیست';
+      }
+    });
+  </script>
+</body>
+</html>
